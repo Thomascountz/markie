@@ -17,7 +17,7 @@ class Tokenizer
       next_token = nil
 
       rules.each do |rule|
-        if rule.applies_to?(markdown[0])
+        if rule.applies_to?(markdown)
           next_token = rule.tokenize(markdown)
           break
         end

@@ -9,7 +9,7 @@ class Rule
   end
 
   def applies_to?(markdown)
-    regex.match?(markdown)
+    regex.match?(markdown[0])
   end
 
   def tokenize(markdown)
