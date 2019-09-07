@@ -5,6 +5,7 @@ Proof-of-concept Markdown to HTML compiler in Ruby
 
 ## Grammar v.`6c20d2a`
 
+
 ```
 Body           := Paragraph*
 Paragraph      := Sentence+ <NEWLINE> <NEWLINE>
