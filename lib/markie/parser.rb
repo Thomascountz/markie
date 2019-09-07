@@ -14,11 +14,11 @@ module Markie
       end
 
       def parse_paragraph(tokens, children = [])
+
         if tokens[0].type == :eof
           return Node.new(type: :paragraph, token_count: children.map(&:token_count).sum, children: children)
-        end
 
-        if tokens[0].type == :text
+        elsif tokens[0].type == :text
           next_child = Node.new(type: :text, token_count: 1, value: tokens[0].value)
 
         elsif tokens[0].type == :underscore && tokens[1].type == :text && tokens[2].type == :underscore
