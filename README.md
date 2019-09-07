@@ -3,7 +3,7 @@
 Proof-of-concept Markdown to HTML compiler in Ruby
 
 
-## Grammar
+## Grammar v.`c28ab7d`
 
 ```
 Body           := Paragraph*
