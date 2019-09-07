@@ -1,13 +1,13 @@
 require "rspec"
-require "parser"
+require "markie/parser"
 
-RSpec.describe Parser do
+RSpec.describe Markie::Parser do
   describe ".parse" do
     describe "parsing an eof token" do
       it "returns an abstract syntax tree" do
-        tokens = [Token.new(type: :eof, value: "")]
+        tokens = [Markie::Token.new(type: :eof, value: "")]
 
-        body = Parser.parse(tokens)
+        body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
         expect(body.token_count).to eq(0)
@@ -22,10 +22,10 @@ RSpec.describe Parser do
 
     describe "parsing a single text token" do
       it "returns an abstract syntax tree" do
-        tokens = [Token.new(type: :text, value: "foo"),
-                  Token.new(type: :eof, value: ""),]
+        tokens = [Markie::Token.new(type: :text, value: "foo"),
+                  Markie::Token.new(type: :eof, value: ""),]
 
-        body = Parser.parse(tokens)
+        body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
         expect(body.token_count).to eq(1)
@@ -46,12 +46,12 @@ RSpec.describe Parser do
 
     describe "parsing an emphasized text token" do
       it "returns an abstract syntax tree" do
-        tokens = [Token.new(type: :underscore, value: "_"),
-                  Token.new(type: :text, value: "emphasis_foo"),
-                  Token.new(type: :underscore, value: "_"),
-                  Token.new(type: :eof, value: ""),]
+        tokens = [Markie::Token.new(type: :underscore, value: "_"),
+                  Markie::Token.new(type: :text, value: "emphasis_foo"),
+                  Markie::Token.new(type: :underscore, value: "_"),
+                  Markie::Token.new(type: :eof, value: ""),]
 
-        body = Parser.parse(tokens)
+        body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
         expect(body.token_count).to eq(3)
@@ -70,12 +70,12 @@ RSpec.describe Parser do
       end
 
       it "returns an abstract syntax tree" do
-        tokens = [Token.new(type: :asterisk, value: "*"),
-                  Token.new(type: :text, value: "emphasis_foo"),
-                  Token.new(type: :asterisk, value: "*"),
-                  Token.new(type: :eof, value: ""),]
+        tokens = [Markie::Token.new(type: :asterisk, value: "*"),
+                  Markie::Token.new(type: :text, value: "emphasis_foo"),
+                  Markie::Token.new(type: :asterisk, value: "*"),
+                  Markie::Token.new(type: :eof, value: ""),]
 
-        body = Parser.parse(tokens)
+        body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
         expect(body.token_count).to eq(3)
@@ -96,15 +96,15 @@ RSpec.describe Parser do
 
     describe "parsing a link token" do
       it "returns an abstract syntax tree" do
-        tokens = [Token.new(type: :open_square_bracket, value: "["),
-                  Token.new(type: :text, value: "link_text"),
-                  Token.new(type: :close_square_bracket, value: "]"),
-                  Token.new(type: :open_parenthesis, value: "("),
-                  Token.new(type: :text, value: "link_url"),
-                  Token.new(type: :close_parenthesis, value: ")"),
-                  Token.new(type: :eof, value: ""),]
+        tokens = [Markie::Token.new(type: :open_square_bracket, value: "["),
+                  Markie::Token.new(type: :text, value: "link_text"),
+                  Markie::Token.new(type: :close_square_bracket, value: "]"),
+                  Markie::Token.new(type: :open_parenthesis, value: "("),
+                  Markie::Token.new(type: :text, value: "link_url"),
+                  Markie::Token.new(type: :close_parenthesis, value: ")"),
+                  Markie::Token.new(type: :eof, value: ""),]
 
-        body = Parser.parse(tokens)
+        body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
         expect(body.token_count).to eq(6)
@@ -131,23 +131,23 @@ RSpec.describe Parser do
 
     describe "parsing different tokens" do
       it "returns an abstract syntax tree" do
-        tokens = [Token.new(type: :asterisk, value: "*"),
-                  Token.new(type: :text, value: "This"),
-                  Token.new(type: :asterisk, value: "*"),
-                  Token.new(type: :text, value: " is "),
-                  Token.new(type: :underscore, value: "_"),
-                  Token.new(type: :text, value: "mine"),
-                  Token.new(type: :underscore, value: "_"),
-                  Token.new(type: :text, value: " "),
-                  Token.new(type: :open_square_bracket, value: "["),
-                  Token.new(type: :text, value: "link_text"),
-                  Token.new(type: :close_square_bracket, value: "]"),
-                  Token.new(type: :open_parenthesis, value: "("),
-                  Token.new(type: :text, value: "link_url"),
-                  Token.new(type: :close_parenthesis, value: ")"),
-                  Token.new(type: :eof, value: ""),]
+        tokens = [Markie::Token.new(type: :asterisk, value: "*"),
+                  Markie::Token.new(type: :text, value: "This"),
+                  Markie::Token.new(type: :asterisk, value: "*"),
+                  Markie::Token.new(type: :text, value: " is "),
+                  Markie::Token.new(type: :underscore, value: "_"),
+                  Markie::Token.new(type: :text, value: "mine"),
+                  Markie::Token.new(type: :underscore, value: "_"),
+                  Markie::Token.new(type: :text, value: " "),
+                  Markie::Token.new(type: :open_square_bracket, value: "["),
+                  Markie::Token.new(type: :text, value: "link_text"),
+                  Markie::Token.new(type: :close_square_bracket, value: "]"),
+                  Markie::Token.new(type: :open_parenthesis, value: "("),
+                  Markie::Token.new(type: :text, value: "link_url"),
+                  Markie::Token.new(type: :close_parenthesis, value: ")"),
+                  Markie::Token.new(type: :eof, value: ""),]
 
-        body = Parser.parse(tokens)
+        body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
         expect(body.token_count).to eq(14)
