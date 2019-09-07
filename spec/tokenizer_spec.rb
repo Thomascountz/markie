@@ -3,6 +3,17 @@ require "tokenizer"
 
 RSpec.describe Tokenizer do
   describe ".tokenize" do
+    describe "tokenizing an empty string" do
+      it "it returns a Token with type `:eof`" do
+        markdown = ""
+        expected_tokens = [Token.new(type: :eof)]
+
+        actual_tokens = Tokenizer.tokenize(markdown)
+
+        expect(actual_tokens.map(&:type)).to eq(expected_tokens.map(&:type))
+      end
+    end
+
     describe "tokenizing a markdown string" do
       it "returns a list of Tokens" do
         markdown = "_italics_*bold*[text](link)\n"

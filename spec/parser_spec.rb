@@ -3,6 +3,23 @@ require "parser"
 
 RSpec.describe Parser do
   describe ".parse" do
+    describe "parsing an eof token" do
+      it "returns an abstract syntax tree" do
+        tokens = [Token.new(type: :eof, value: "")]
+
+        body = Parser.parse(tokens)
+
+        expect(body.type).to eq(:body)
+        expect(body.token_count).to eq(0)
+        expect(body.children.length).to eq(1)
+
+        paragraph = body.children[0]
+        expect(paragraph.type).to eq(:paragraph)
+        expect(paragraph.token_count).to eq(0)
+        expect(paragraph.children.length).to eq(0)
+      end
+    end
+
     describe "parsing a single text token" do
       it "returns an abstract syntax tree" do
         tokens = [Token.new(type: :text, value: "foo"),

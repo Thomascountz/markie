@@ -31,7 +31,7 @@ class Tokenizer
     end
 
     def eof_token
-      Token.new(type: :eof, value: "")
+      Token.new(type: :eof)
     end
 
     def text_token(markdown)
