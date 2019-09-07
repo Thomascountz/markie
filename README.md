@@ -1,4 +1,5 @@
-# Markie
+# Markie <img src="https://i.postimg.cc/wxXhdwZr/markie-2.jpg" alt="relay logo" width="100" align="right"/>
+
 
 Proof-of-concept Markdown to HTML compiler in Ruby
 
