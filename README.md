@@ -1,10 +1,10 @@
-# Markie <img src="https://i.postimg.cc/wxXhdwZr/markie-2.jpg" alt="relay logo" width="100" align="right"/>
-
+# Markie <img src="https://i.postimg.cc/wxXhdwZr/markie-2.jpg" alt="markie_logo" width="100" align="right"/>
 
 Proof-of-concept Markdown to HTML compiler in Ruby
 
 
-## Grammar v.`c28ab7d`
+## Grammar v.`6c20d2a`
+
 
 ```
 Body           := Paragraph*
@@ -19,44 +19,62 @@ Emphasis       := <UNDERSCORE> <TEXT> <UNDERSCORE>
 Link           := <OPEN_SQUARE_BRACKET> <TEXT> <CLOSED_SQUARE_BRACKET> <OPEN_PARENTHESIS> <TEXT> <CLOSED_PARENTHESIS>
 ```
 
+## Quick Start
 
-## Example v.`c28ab7d`
+Setup Markie for local development
+```
+$ bin/setup
+```
+
+Experiment with Markie
+
+```
+$ bin/console
+```
+
+Run tests
+```
+$ rake
+```
+
+## Example v.`6c20d2a`
 
 ```ruby
 markdown = "[Markie](https://github.com/Thomascountz/markie) isn't _the_ best, but it's fun!"
 => "[Markie](https://github.com/Thomascountz/markie) isn't _the_ best, but it's fun!"
 
-tokens = Tokenizer.tokenize(markdown)
-=> [#<Token:0x00007ff253247af0 @type=:open_square_bracket, @value="[">,
- #<Token:0x00007ff25327f298 @type=:text, @value="Markie">,
- #<Token:0x00007ff253287970 @type=:close_square_bracket, @value="]">,
- #<Token:0x00007ff25328fe68 @type=:open_parenthesis, @value="(">,
- #<Token:0x00007ff2539299b8 @type=:text, @value="https://github.com/Thomascountz/markie">,
- #<Token:0x00007ff253933be8 @type=:close_parenthesis, @value=")">,
- #<Token:0x00007ff253940910 @type=:text, @value=" isn't ">,
- #<Token:0x00007ff25394b7e8 @type=:underscore, @value="_">,
- #<Token:0x00007ff253951b70 @type=:text, @value="the">,
- #<Token:0x00007ff253950c70 @type=:underscore, @value="_">,
- #<Token:0x00007ff253316210 @type=:text, @value=" best, but it's fun!">,
- #<Token:0x00007ff2533160d0 @type=:eof, @value="">]
+tokens = Markie::Tokenizer.tokenize(markdown)
+=> [#<Markie::Token:0x00007f942c095c00 @type=:open_square_bracket, @value="[">,
+ #<Markie::Token:0x00007f942c115cc0 @type=:text, @value="Markie">,
+ #<Markie::Token:0x00007f942c11c2f0 @type=:close_square_bracket, @value="]">,
+ #<Markie::Token:0x00007f942c124400 @type=:open_parenthesis, @value="(">,
+ #<Markie::Token:0x00007f942d0e7928 @type=:text, @value="https://github.com/Thomascountz/markie">,
+ #<Markie::Token:0x00007f942d0e5f10 @type=:close_parenthesis, @value=")">,
+ #<Markie::Token:0x00007f942d10d100 @type=:text, @value=" isn't ">,
+ #<Markie::Token:0x00007f942d1171a0 @type=:underscore, @value="_">,
+ #<Markie::Token:0x00007f942d12dc98 @type=:text, @value="the">,
+ #<Markie::Token:0x00007f942d13f5b0 @type=:underscore, @value="_">,
+ #<Markie::Token:0x00007f942d19f7f8 @type=:text, @value=" best, but it's fun!">,
+ #<Markie::Token:0x00007f942d19f690 @type=:eof, @value="">]
 
-ast = Parser.parse(tokens)
-=> #<Node:0x00007ff2532be538
+ast = Markie::Parser.parse(tokens)
+=> #<Markie::Node:0x00007f942d23a640
  @children=
-  [#<Node:0x00007ff2532be6f0
+  [#<Markie::Node:0x00007f942d23a708
     @children=
-     [#<Node:0x00007ff2532bf870 @children=[#<Node:0x00007ff2532bfc30 @children=[], @token_count=1, @type=:text, @value="Markie">], @token_count=6, @type=:link, @value="https://github.com/Thomascountz/markie">,
-      #<Node:0x00007ff2532bf6e0 @children=[], @token_count=1, @type=:text, @value=" isn't ">,
-      #<Node:0x00007ff2532bf398 @children=[], @token_count=3, @type=:emphasis, @value="the">,
-      #<Node:0x00007ff2532be880 @children=[], @token_count=1, @type=:text, @value=" best, but it's fun!">],
+     [#<Markie::Node:0x00007f942d23aaf0 @children=[#<Markie::Node:0x00007f942d23abb8 @children=[], @token_count=1, @type=:text, @value="Markie">], @token_count=6, @type=:link, @value="https://github.com/Thomascountz/markie">,
+      #<Markie::Node:0x00007f942d23aa00 @children=[], @token_count=1, @type=:text, @value=" isn't ">,
+      #<Markie::Node:0x00007f942d23a910 @children=[], @token_count=3, @type=:emphasis, @value="the">,
+      #<Markie::Node:0x00007f942d23a820 @children=[], @token_count=1, @type=:text, @value=" best, but it's fun!">],
     @token_count=11,
     @type=:paragraph,
     @value=nil>],
  @token_count=11,
  @type=:body,
  @value=nil>
-
 ```
+
+### Abstract Syntax Tree as JSON
 
 ```json
 {
