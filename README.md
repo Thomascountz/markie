@@ -1,6 +1,6 @@
 # Markie <img src="https://i.postimg.cc/wxXhdwZr/markie-2.jpg" alt="markie_logo" width="100" align="right"/>
 
-Proof-of-concept Markdown to HTML compiler in Ruby
+Proof-of-concept Markdown to HTML compiler Ruby gem. <img src="https://badge.fury.io/rb/markie.svg" alt="markie_gem" width="100" align="right"/>
 
 
 ## Grammar v.`6c20d2a`
