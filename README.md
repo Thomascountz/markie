@@ -4,7 +4,7 @@ Proof-of-concept Markdown to HTML compiler Ruby gem. <img src="https://travis-ci
 
 <img src="https://badge.fury.io/rb/markie.svg" alt="markie_gem" width="100" align="right"/> 
 
-## Grammar v.`6c20d2a`
+## Grammar `v0.0.2`
 
 
 ```
@@ -33,12 +33,20 @@ Experiment with Markie
 $ bin/console
 ```
 
+```
+markdown = "[Markie](https://github.com/Thomascountz/markie) isn't _the_ best, but it's fun!"
+=> "[Markie](https://github.com/Thomascountz/markie) isn't _the_ best, but it's fun!"
+
+Markie.to_html(markdown)
+=> "<body><p><a href=\"https://github.com/Thomascountz/markie\">Markie</a> isn't <em>the</em> best, but it's fun!</p></body>"
+```
+
 Run tests
 ```
 $ rake
 ```
 
-## Example v.`6c20d2a`
+## Development Example `v.0.0.2`
 
 ```ruby
 markdown = "[Markie](https://github.com/Thomascountz/markie) isn't _the_ best, but it's fun!"
@@ -73,6 +81,9 @@ ast = Markie::Parser.parse(tokens)
  @token_count=11,
  @type=:body,
  @value=nil>
+ 
+ html = Markie::Generator.generate(ast)
+ => "<body><p><a href=\"https://github.com/Thomascountz/markie\">Markie</a> isn't <em>the</em> best, but it's fun!</p></body>"
 ```
 
 ### Abstract Syntax Tree as JSON
