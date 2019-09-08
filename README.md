@@ -1,6 +1,6 @@
 # Markie <img src="https://i.postimg.cc/wxXhdwZr/markie-2.jpg" alt="markie_logo" width="100" align="right"/>
 
-Proof-of-concept Markdown to HTML compiler Ruby gem. <img src="https://travis-ci.org/Thomascountz/markie.svg?branch=master" alt="travis_build" width="100" align="right"/> 
+Proof-of-concept Markdown to HTML compiler Ruby gem. <a href="https://travis-ci.org/Thomascountz/markie"><img src="https://travis-ci.org/Thomascountz/markie.svg?branch=master" alt="travis_build" width="100" align="right"/></a> 
 
 <a href="https://rubygems.org/gems/markie"><img src="https://badge.fury.io/rb/markie.svg" alt="markie_gem" width="100" align="right"/></a>
 
