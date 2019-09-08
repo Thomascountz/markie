@@ -14,7 +14,6 @@ module Markie
       end
 
       def parse_paragraph(tokens, children = [])
-
         if tokens[0].type == :eof
           return Node.new(type: :paragraph, token_count: children.map(&:token_count).sum, children: children)
 
