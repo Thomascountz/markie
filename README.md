@@ -4,13 +4,41 @@ Proof-of-concept Markdown to HTML compiler Ruby gem. <a href="https://travis-ci.
 
 <a href="https://rubygems.org/gems/markie"><img src="https://badge.fury.io/rb/markie.svg" alt="markie_gem" width="100" align="right"/></a>
 
+## Quickstart
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'markie'
+```
+
+And then install:
+
+```
+$ bundle install
+```
+
+Example
+
+```ruby
+markdown = "[Markie](https://github.com/Thomascountz/markie) isn't _the_ best, but it's fun!"
+=> "[Markie](https://github.com/Thomascountz/markie) isn't _the_ best, but it's fun!"
+
+Markie.to_html(markdown)
+=> "<body><p><a href=\"https://github.com/Thomascountz/markie\">Markie</a> isn't <em>the</em> best, but it's fun!</p></body>"
+```
+
+#### Read about the theory behind markie: [Entry-level Compiler](https://medium.com/@thomascountz/entry-level-compiler-ba7e91cffbb2?source=friends_link&sk=7357574d4832f60969b2b65778da54b3)
+
+#### Follow the project's roadmap: [Project Roadmap](https://github.com/Thomascountz/markie/projects)
+
+
 ## Grammar `v0.0.2`
 
 
 ```
 Body           := Paragraph*
-Paragraph      := Sentence+ <NEWLINE> <NEWLINE>
-                | Sentence+ <EOF>
+Paragraph      := Sentence+ <EOF>
 Sentence       := Text
                 | Emphasis
                 | Link
@@ -20,7 +48,7 @@ Emphasis       := <UNDERSCORE> <TEXT> <UNDERSCORE>
 Link           := <OPEN_SQUARE_BRACKET> <TEXT> <CLOSED_SQUARE_BRACKET> <OPEN_PARENTHESIS> <TEXT> <CLOSED_PARENTHESIS>
 ```
 
-## Quick Start
+## Develop
 
 Setup Markie for local development
 ```
@@ -33,7 +61,7 @@ Experiment with Markie
 $ bin/console
 ```
 
-```
+```ruby
 markdown = "[Markie](https://github.com/Thomascountz/markie) isn't _the_ best, but it's fun!"
 => "[Markie](https://github.com/Thomascountz/markie) isn't _the_ best, but it's fun!"
 
