@@ -8,14 +8,24 @@ module Markie
         parse_body(tokens)
       end
 
-      def parse_body(tokens)
-        children = [parse_paragraph(tokens)]
-        Node.new(type: :body, token_count: children.map(&:token_count).sum, children: children)
+      def parse_body(tokens, children = [])
+        if tokens.length == 0
+          return Node.new(type: :body, token_count: children.map(&:token_count).sum, children: children)
+        end
+
+        next_child = parse_paragraph(tokens)
+
+        children.append(next_child)
+        next_tokens = tokens[next_child.token_count..-1]
+
+        parse_body(next_tokens, children)
       end
 
       def parse_paragraph(tokens, children = [])
         if tokens[0].type == :eof
-          return Node.new(type: :paragraph, token_count: children.map(&:token_count).sum, children: children)
+          return Node.new(type: :paragraph, token_count: children.map(&:token_count).sum + 1, children: children)
+        elsif tokens[0].type == :newline && tokens[1].type == :newline
+          return Node.new(type: :paragraph, token_count: children.map(&:token_count).sum + 2, children: children)
 
         elsif tokens[0].type == :text
           next_child = Node.new(type: :text, token_count: 1, value: tokens[0].value)

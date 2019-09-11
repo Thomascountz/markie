@@ -10,12 +10,12 @@ RSpec.describe Markie::Parser do
         body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
-        expect(body.token_count).to eq(0)
+        expect(body.token_count).to eq(1)
         expect(body.children.length).to eq(1)
 
         paragraph = body.children[0]
         expect(paragraph.type).to eq(:paragraph)
-        expect(paragraph.token_count).to eq(0)
+        expect(paragraph.token_count).to eq(1)
         expect(paragraph.children.length).to eq(0)
       end
     end
@@ -28,12 +28,12 @@ RSpec.describe Markie::Parser do
         body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
-        expect(body.token_count).to eq(1)
+        expect(body.token_count).to eq(2)
         expect(body.children.length).to eq(1)
 
         paragraph = body.children[0]
         expect(paragraph.type).to eq(:paragraph)
-        expect(paragraph.token_count).to eq(1)
+        expect(paragraph.token_count).to eq(2)
         expect(paragraph.children.length).to eq(1)
 
         text = paragraph.children[0]
@@ -54,12 +54,12 @@ RSpec.describe Markie::Parser do
         body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
-        expect(body.token_count).to eq(3)
+        expect(body.token_count).to eq(4)
         expect(body.children.length).to eq(1)
 
         paragraph = body.children[0]
         expect(paragraph.type).to eq(:paragraph)
-        expect(paragraph.token_count).to eq(3)
+        expect(paragraph.token_count).to eq(4)
         expect(paragraph.children.length).to eq(1)
 
         emphasis_text = paragraph.children[0]
@@ -78,12 +78,12 @@ RSpec.describe Markie::Parser do
         body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
-        expect(body.token_count).to eq(3)
+        expect(body.token_count).to eq(4)
         expect(body.children.length).to eq(1)
 
         paragraph = body.children[0]
         expect(paragraph.type).to eq(:paragraph)
-        expect(paragraph.token_count).to eq(3)
+        expect(paragraph.token_count).to eq(4)
         expect(paragraph.children.length).to eq(1)
 
         emphasis_text = paragraph.children[0]
@@ -107,12 +107,12 @@ RSpec.describe Markie::Parser do
         body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
-        expect(body.token_count).to eq(6)
+        expect(body.token_count).to eq(7)
         expect(body.children.length).to eq(1)
 
         paragraph = body.children[0]
         expect(paragraph.type).to eq(:paragraph)
-        expect(paragraph.token_count).to eq(6)
+        expect(paragraph.token_count).to eq(7)
         expect(paragraph.children.length).to eq(1)
 
         link = paragraph.children[0]
@@ -126,6 +126,44 @@ RSpec.describe Markie::Parser do
         expect(text.token_count).to eq(1)
         expect(text.value).to eq("link_text")
         expect(text.children.length).to eq(0)
+      end
+    end
+
+    describe "parsing multiple paragraphs" do
+      it "returns an abstract syntax tree" do
+        tokens = [Markie::Token.new(type: :text, value: "first paragraph"),
+                  Markie::Token.new(type: :newline, value: ""),
+                  Markie::Token.new(type: :newline, value: ""),
+                  Markie::Token.new(type: :text, value: "second paragraph"),
+                  Markie::Token.new(type: :eof, value: ""),]
+
+        body = Markie::Parser.parse(tokens)
+
+        expect(body.type).to eq(:body)
+        expect(body.token_count).to eq(5)
+        expect(body.children.length).to eq(2)
+
+        paragraph1 = body.children[0]
+        expect(paragraph1.type).to eq(:paragraph)
+        expect(paragraph1.token_count).to eq(3)
+        expect(paragraph1.children.length).to eq(1)
+
+        text1 = paragraph1.children[0]
+        expect(text1.type).to eq(:text)
+        expect(text1.token_count).to eq(1)
+        expect(text1.value).to eq("first paragraph")
+        expect(text1.children.length).to eq(0)
+
+        paragraph2 = body.children[1]
+        expect(paragraph2.type).to eq(:paragraph)
+        expect(paragraph2.token_count).to eq(2)
+        expect(paragraph2.children.length).to eq(1)
+
+        text2 = paragraph2.children[0]
+        expect(text2.type).to eq(:text)
+        expect(text2.token_count).to eq(1)
+        expect(text2.value).to eq("second paragraph")
+        expect(text2.children.length).to eq(0)
       end
     end
 
@@ -150,12 +188,12 @@ RSpec.describe Markie::Parser do
         body = Markie::Parser.parse(tokens)
 
         expect(body.type).to eq(:body)
-        expect(body.token_count).to eq(14)
+        expect(body.token_count).to eq(15)
         expect(body.children.length).to eq(1)
 
         paragraph = body.children[0]
         expect(paragraph.type).to eq(:paragraph)
-        expect(paragraph.token_count).to eq(14)
+        expect(paragraph.token_count).to eq(15)
         expect(paragraph.children.length).to eq(5)
 
         emphasis = paragraph.children[0]
